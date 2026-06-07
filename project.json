@@ -1,0 +1,19 @@
+{
+  "overview": "A simple booking website with an AI chat agent that helps users find and reserve time slots, plus a visual 3-week calendar showing all booked and available slots.",
+  "features": [
+    "AI chat agent that suggests available time slots and creates bookings automatically",
+    "3-week visual calendar showing current and upcoming bookings",
+    "Public booking — no login required, just pick a date and time",
+    "Up to 4 bookable slots per day during business hours",
+    "Admin panel to view all bookings and cancel them"
+  ],
+  "category": "booking-app",
+  "tags": [
+    "booking",
+    "ai-agent",
+    "calendar",
+    "scheduler",
+    "no-login"
+  ],
+  "last_updated": "2026-06-06T21:50:07.640Z"
+}

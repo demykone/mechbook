@@ -1,0 +1,38 @@
+type UserRole = 
+ variant {
+   admin;
+   guest;
+   user;
+ };
+type BookingStatus = 
+ variant {
+   active;
+   cancelled;
+ };
+type Booking = 
+ record {
+   createdAt: int;
+   date: text;
+   endTime: text;
+   id: nat;
+   slotIndex: nat;
+   startTime: text;
+   status: BookingStatus;
+ };
+service : {
+  _initializeAccessControl: () -> ();
+  assignCallerUserRole: (user: principal, role: UserRole) -> ();
+  cancelBooking: (id: nat) -> (variant {
+                                 err: text;
+                                 ok;
+                               });
+  createBooking: (date: text, slotIndex: nat) ->
+   (variant {
+      err: text;
+      ok: Booking;
+    });
+  getAvailableSlots: (date: text) -> (vec nat) query;
+  getBookings: (startDate: text, endDate: text) -> (vec Booking) query;
+  getCallerUserRole: () -> (UserRole) query;
+  isCallerAdmin: () -> (bool) query;
+}

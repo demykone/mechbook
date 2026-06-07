@@ -1,0 +1,94 @@
+// Version: 3.0.0
+type BookingStatus__855929521 = {#active; #cancelled};
+type Booking__747685657 =
+  {
+    createdAt : Int;
+    date : Text;
+    endTime : Text;
+    id : Nat;
+    slotIndex : Nat;
+    startTime : Text;
+    status : BookingStatus__855929521
+  };
+type Data__791452850<K, V> =
+  {var count : Nat__490723111; kvs : [var ?(K, V)]};
+type Internal__8484328<K, V> =
+  {children : [var ?Node__46230540<K, V>]; data : Data__791452850<K, V>};
+type Leaf__809889148<K, V> = {data : Data__791452850<K, V>};
+type Map__158565046<K, V> = Map__297112838<K, V>;
+type Map__297112838<K, V> =
+  {var root : Node__46230540<K, V>; var size : Nat__490723111};
+type Map__605269027<K, V> = Map__158565046<K, V>;
+type Nat__490723111 = Nat__920180692;
+type Nat__920180692 = Nat;
+type Node__46230540<K, V> =
+  {#internal : Internal__8484328<K, V>; #leaf : Leaf__809889148<K, V>};
+type OldBookingStatus__846941108 = {#active; #cancelled; #completed};
+type OldJobPriority__380425188 = {#high; #low; #medium};
+type OldJobStatus__421930301 = {#done; #inProgress; #todo};
+type OldJob__973540862 =
+  {
+    assignedTo : ?Principal;
+    assigneeName : ?Text;
+    createdAt : Int;
+    createdBy : Principal;
+    description : Text;
+    id : Nat;
+    linkedBookingId : ?Nat;
+    priority : OldJobPriority__380425188;
+    status : OldJobStatus__421930301;
+    title : Text;
+    updatedAt : Int;
+    vehicleInfo : ?Text
+  };
+type OldMechanic__518514462 =
+  {
+    createdAt : Int;
+    id : Nat;
+    name : Text;
+    principal : Principal;
+    role : OldRole__987685965
+  };
+type OldRole__987685965 = {#admin; #mechanic};
+type OldServerBooking__1045093753 =
+  {
+    createdAt : Int;
+    endTime : Int;
+    id : Nat;
+    jobId : ?Nat;
+    mechanicId : Principal;
+    mechanicName : Text;
+    purpose : Text;
+    startTime : Int;
+    status : OldBookingStatus__846941108
+  };
+type OldState__853343916 =
+  {var nextBookingId : Nat; var nextJobId : Nat; var nextMechanicId : Nat};
+type UserRole__1073662873 = {#admin; #guest; #user};
+actor ({
+  stable accessControlState :
+    {
+      var adminAssigned : Bool;
+      userRoles : Map__605269027<Principal, UserRole__1073662873>
+    };
+  in bookings : Map__605269027<Nat, OldServerBooking__1045093753>;
+  in jobs : Map__605269027<Nat, OldJob__973540862>;
+  in mechanics : Map__605269027<Principal, OldMechanic__518514462>;
+  stable slotEndTimes : [Text];
+  stable slotStartTimes : [Text];
+  in state : OldState__853343916
+}, {
+  stable accessControlState :
+    {
+      var adminAssigned : Bool;
+      userRoles : Map__605269027<Principal, UserRole__1073662873>
+    };
+  stable bookings :
+    {
+      var root : Node__46230540<Nat, Booking__747685657>;
+      var size : Nat__490723111
+    };
+  stable slotEndTimes : [Text];
+  stable slotStartTimes : [Text];
+  stable state : {var nextId : Nat}
+});
